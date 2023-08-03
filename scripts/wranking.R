@@ -13,4 +13,18 @@ surveys %>%
   filter(!is.na(weight)) %>% 
   mutate(weight_kg = weight/1000) %>% 
   select(weight, weight_kg)
+
+surveys %>% 
+  filter(year==1995) %>% 
+  count(species_id) %>% 
+  arrange(desc(n))
+
+survey2 <- surveys %>% 
+  filter(year==1995,
+         !is.na(weight),
+         species_id %in% c("PL", "PF", "PH")) %>% 
+  group_by(species_id) %>% 
+  summarise(min_weight=min(weight),
+            max_weight=max(weight),
+            total=n())
   
