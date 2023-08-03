@@ -27,4 +27,19 @@ survey2 <- surveys %>%
   summarise(min_weight=min(weight),
             max_weight=max(weight),
             total=n())
-  
+
+#Cleaning data
+surveys %>% 
+  filter(!is.na(weight),
+         !is.na(sex),
+         !is.na(hindfoot_length)) -> surveys_clean
+
+surveys_clean %>% 
+  count(species_id) %>% 
+  filter(n >= 50) -> species_count
+
+surveys_clean %>% 
+  filter(surveys_clean$species_id %in% species_count$species_id) -> surveys_complete
+
+write_csv(surveys_complete, 
+          "data_output/surveys_complete.csv")

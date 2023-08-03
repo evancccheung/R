@@ -169,7 +169,7 @@ country_climate <- data.frame(country=c("Canada", "Panama", "South Africa", "Aus
 #       * Only keep the species_id and hindfoot_half columns
 
 surveys3 <- surveys %>% 
-  mutate(hindfoot_cm = hindfoot_length/10) %>% 
+  # mutate(hindfoot_cm = hindfoot_length/10) %>%
   filter(!is.na(hindfoot_cm),
          hindfoot_cm < 3) %>%
   select(species_id, hindfoot_cm)
